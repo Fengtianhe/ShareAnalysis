@@ -86,7 +86,7 @@ public class DailyPriceSyncSchedule {
         entity.setChange(realtimeQuotation.getChg());
         entity.setPctChg(realtimeQuotation.getPercent());
         entity.setVol(realtimeQuotation.getVolume() / 100.00);
-        entity.setAmount(Double.valueOf(realtimeQuotation.getAmount()));
+        entity.setAmount(realtimeQuotation.getAmount() / 1000.00);
         entity.setCurrentYearPercent(realtimeQuotation.getCurrent_year_percent());
         priceMapper.update(entity);
     }
