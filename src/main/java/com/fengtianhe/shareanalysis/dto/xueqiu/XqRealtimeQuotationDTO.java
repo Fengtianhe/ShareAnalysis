@@ -4,6 +4,7 @@ import lombok.Data;
 
 /**
  * 雪球实时报价返回体
+ *
  * @author 冯天鹤
  * @date 2023/1/13.
  */
@@ -50,4 +51,13 @@ public class XqRealtimeQuotationDTO {
     private Boolean is_trade;
 
     private Double current_year_percent;
+
+    /**
+     * 股票是否停牌
+     *
+     * @return
+     */
+    public boolean isSuspension() {
+        return open == null || open == 0 || volume == null || volume == 0 || amount == null || amount == 0 || high == null || high == 0 || low == null || low == 0;
+    }
 }

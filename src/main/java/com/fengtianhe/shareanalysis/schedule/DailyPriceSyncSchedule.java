@@ -41,6 +41,10 @@ public class DailyPriceSyncSchedule {
             for (NameEntity share : shareList) {
                 String code = share.getCode();
                 XqRealtimeQuotationDTO realtimeQuotation = xqBasicComponent.getRealtimeQuotation(code);
+                if (realtimeQuotation.isSuspension()) {
+                    log.info("[DailyPriceSyncSchedule execute] 每日价格同步 {}[{}] 停牌不同步", share.getName(), share.getCode());
+                    continue;
+                }
 
                 PriceEntity priceEntity = priceMapper.getByNameAndDate(code, date);
                 if (priceEntity == null) {
