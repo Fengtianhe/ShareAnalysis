@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fengtianhe.shareanalysis.mapper.PriceMapper">
+    <select id="getByNameAndDate" resultType="com.fengtianhe.shareanalysis.entity.PriceEntity">
+        select *
+        from `price`
+        where ts_code = #{name}
+          and trade_date = #{date}
+    </select>
+
+    <insert id="save">
+        INSERT INTO `price`
+            (`ts_code`, `trade_date`, `open`, `high`, `low`, `close`, `pre_close`, `change`, `pct_chg`, `vol`, `amount`)
+        VALUES
+            (#{tsCode}, #{tradeDate}, #{open}, #{high}, #{low}, #{close}, #{preClose}, #{change}, #{pctChg}, #{vol}, #{amount})
+    </insert>
+
+    <update id="update">
+        update `price`
+        <set>
+            <if test="entity.open != null">
+                `open` = #{entity.open},
+            </if>
+            <if test="entity.high != null">
+                `high` = #{entity.high},
+            </if>
+            <if test="entity.low != null">
+                `low` = #{entity.low},
+            </if>
+            <if test="entity.close != null">
+                `close` = #{entity.close},
+            </if>
+            <if test="entity.preClose != null">
+                `pre_close` = #{entity.preClose},
+            </if>
+            <if test="entity.change != null">
+                `change` = #{entity.change},
+            </if>
+            <if test="entity.pctChg != null">
+                `pct_chg` = #{entity.pctChg},
+            </if>
+            <if test="entity.vol != null">
+                `vol` = #{entity.vol},
+            </if>
+            <if test="entity.amount != null">
+                `amount` = #{entity.amount},
+            </if>
+        </set>
+        where `ts_code` = #{entity.tsCode} and `trade_date` = #{entity.tradeDate}
+    </update>
+</mapper>
