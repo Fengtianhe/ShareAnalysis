@@ -8,7 +8,7 @@ echo "备份目录${DATABASE_BACKUP_DIR}"
 echo "当前脚本目录${DIR}"
 
 if [ ! -d ${DATABASE_BACKUP_DIR} ]; then
-  mkdir /data
+  mkdir DATABASE_BACKUP_DIR
 else
   echo "文件夹已经存在"
   cd /home/work/mysql_backup_dir
