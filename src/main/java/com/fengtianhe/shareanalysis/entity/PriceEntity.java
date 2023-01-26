@@ -1,6 +1,9 @@
 package com.fengtianhe.shareanalysis.entity;
 
+import com.fengtianhe.shareanalysis.utils.NumberUtil;
 import lombok.Data;
+
+import java.util.Objects;
 
 /**
  * 股票价格信息
@@ -58,4 +61,24 @@ public class PriceEntity {
      * 今年的涨跌幅
      */
     private Double currentYearPercent;
+
+    /**
+     * 一字是否涨停
+     * 描述：当天开盘价等于收盘价，最高价等于最低价，且涨停幅为10%
+     *
+     * @return true/false
+     */
+    public boolean isDirectRiseLimit() {
+        return Objects.equals(open, close) && Objects.equals(high, low) && NumberUtil.roundToInt(pctChg) == 10;
+    }
+
+    /**
+     * 一字跌停
+     * 描述：当天开盘价等于收盘价，最高价等于最低价，且涨停幅为-10%
+     *
+     * @return true/false
+     */
+    public boolean isDirectFallLimit() {
+        return Objects.equals(open, close) && Objects.equals(high, low) && NumberUtil.roundToInt(pctChg) == -10;
+    }
 }

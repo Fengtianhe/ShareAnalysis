@@ -49,4 +49,8 @@
         </set>
         where `ts_code` = #{entity.tsCode} and `trade_date` = #{entity.tradeDate}
     </update>
+
+    <select id="getByDate" resultType="com.fengtianhe.shareanalysis.entity.PriceEntity">
+        select * from price where trade_date = #{currDate}
+    </select>
 </mapper>
