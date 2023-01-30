@@ -1,5 +1,6 @@
 package com.fengtianhe.shareanalysis.utils;
 
+import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
@@ -81,6 +82,10 @@ public class HttpClientUtil {
         HttpEntity entity = response.getEntity();
         String result = EntityUtils.toString(entity, "utf-8");
         return result;
+    }
+
+    public <T> T execute(Class<T> clazz) throws IOException {
+        return JSON.parseObject(execute(), clazz);
     }
 
     private void setParameter() throws UnsupportedEncodingException {
