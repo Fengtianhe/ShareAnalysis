@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fengtianhe.shareanalysis.mapper.SpecialIndexDailyMapper">
+    <sql id="tableName">`special_index_daily`</sql>
+
+    <insert id="save" parameterType="com.fengtianhe.shareanalysis.entity.SpecialIndexDailyEntity">
+        INSERT INTO
+        <include refid="tableName"/>
+        (`date`, `direct_rise_limit`, `direct_fall_limit`, `rise_limit`, `fall_limit`)
+        VALUES
+        (#{entity.date}, #{entity.directRiseLimit}, #{entity.directFallLimit}, #{entity.riseLimit}, #{entity.fallLimit})
+    </insert>
+
+    <select id="getByDate" resultType="com.fengtianhe.shareanalysis.entity.SpecialIndexDailyEntity">
+        select * from
+        <include refid="tableName"/>
+        where date = #{date}
+    </select>
+
+    <update id="updateById" parameterType="com.fengtianhe.shareanalysis.entity.SpecialIndexDailyEntity">
+        update
+        <include refid="tableName"/>
+        <set>
+            <if test="entity.directRiseLimit != null">
+                `direct_rise_limit` = #{entity.directRiseLimit},
+            </if>
+            <if test="entity.directFallLimit != null">
+                `direct_fall_limit` = #{entity.directFallLimit},
+            </if>
+            <if test="entity.riseLimit != null">
+                `rise_limit` = #{entity.riseLimit},
+            </if>
+            <if test="entity.fallLimit != null">
+                `fall_limit` = #{entity.fallLimit},
+            </if>
+        </set>
+        where `id` = #{entity.id}
+    </update>
+</mapper>

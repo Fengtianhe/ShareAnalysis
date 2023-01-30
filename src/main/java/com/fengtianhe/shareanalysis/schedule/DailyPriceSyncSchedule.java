@@ -31,7 +31,7 @@ public class DailyPriceSyncSchedule {
     @Autowired
     PriceMapper priceMapper;
 
-    @Scheduled(cron = "0 0 16 * * *")
+//    @Scheduled(cron = "0 0 16 * * *")
     public void execute() {
         try {
             long st = System.currentTimeMillis();
