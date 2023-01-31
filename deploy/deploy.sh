@@ -50,10 +50,10 @@ rm -rf source
 
 echo -e "${RED_COLOR}杀死进程${RES}"
 
-ps -ef | grep ${JAR_NAME}.jar | awk '{print $2}'|xargs kill -9
+kill -9 `cat pidfile.txt`
 
 echo -e "${GREEN_COLOR}启动程序${RES}"
 
-nohup java -jar ${JAR_NAME}.jar -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -Xloggc:./gc.log > nohup.out 2>&1 &
+nohup java -jar ${JAR_NAME}.jar -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -Xloggc:./gc.log > nohup.out 2>&1 & echo $! > pidfile.txt
 
 echo -e "${GREEN_COLOR}部署成功${RES}"
