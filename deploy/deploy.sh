@@ -12,6 +12,8 @@ RES='\E[0m'
 CURRENT_DIR=$(cd $(dirname $0) && pwd);
 #制品jar包名
 JAR_NAME="share-analysis-server"
+#进程号文件
+PID_NAME="pidfile.txt"
 
 echo "当前目录：${CURRENT_DIR}"
 
@@ -54,6 +56,8 @@ kill -9 `cat pidfile.txt`
 
 echo -e "${GREEN_COLOR}启动程序${RES}"
 
-nohup java -jar ${JAR_NAME}.jar -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -Xloggc:./gc.log > nohup.out 2>&1 & echo $! > pidfile.txt
+nohup java -jar ${JAR_NAME}.jar -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -Xloggc:./gc.log > nohup.out 2>&1 & echo $! > ${PID_NAME}
 
 echo -e "${GREEN_COLOR}部署成功${RES}"
+
+chmod 755 ${PID_NAME}
