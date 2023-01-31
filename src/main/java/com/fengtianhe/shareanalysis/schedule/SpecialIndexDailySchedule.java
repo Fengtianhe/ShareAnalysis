@@ -6,6 +6,7 @@ import com.fengtianhe.shareanalysis.spider.tonghuashun.ThxDashboardComponent;
 import com.fengtianhe.shareanalysis.utils.DatetimeUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -24,6 +25,10 @@ public class SpecialIndexDailySchedule {
     @Autowired
     SpecialIndexDailyMapper specialIndexDailyMapper;
 
+    /**
+     * 每天4点获取特色指标
+     */
+//    @Scheduled(cron = "0 0 16 * * *")
     public void execute() {
         String date = DatetimeUtil.format(DatetimeUtil.FORMAT_DATE_NO_SEPARATOR);
         SpecialIndexDailyEntity specialIndexDailyEntity = null;
