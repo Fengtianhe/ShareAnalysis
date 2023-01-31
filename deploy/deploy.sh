@@ -14,6 +14,7 @@ CURRENT_DIR=$(cd $(dirname $0) && pwd);
 JAR_NAME="share-analysis-server"
 #进程号文件
 PID_NAME="pidfile.txt"
+JAVA_APPLICATION_PID=`cat ${CURRENT_DIR}/${PID_NAME}`
 
 echo "当前目录：${CURRENT_DIR}"
 
@@ -50,9 +51,9 @@ echo -e "${BLUE_COLORE}删除源文件...${RES}"
 
 rm -rf source
 
-echo -e "${RED_COLOR}杀死进程${RES}"
+echo -e "${RED_COLOR}杀死进程:${JAVA_APPLICATION_PID} ${RES}"
 
-kill -9 `cat pidfile.txt`
+kill -9 ${JAVA_APPLICATION_PID}
 
 echo -e "${GREEN_COLOR}启动程序${RES}"
 
