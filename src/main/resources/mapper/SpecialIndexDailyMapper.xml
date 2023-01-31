@@ -41,5 +41,6 @@
     <select id="getByCondition" resultType="com.fengtianhe.shareanalysis.entity.SpecialIndexDailyEntity">
         select * from
         <include refid="tableName"/>
+        order by date desc
     </select>
 </mapper>

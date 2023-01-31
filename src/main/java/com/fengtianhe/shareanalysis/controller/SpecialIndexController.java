@@ -1,13 +1,11 @@
 package com.fengtianhe.shareanalysis.controller;
 
 import com.fengtianhe.shareanalysis.entity.SpecialIndexDailyEntity;
+import com.fengtianhe.shareanalysis.schedule.SpecialIndexDailySchedule;
 import com.fengtianhe.shareanalysis.service.ISpecialIndexService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 特殊指标
@@ -19,10 +17,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class SpecialIndexController {
     @Autowired
     ISpecialIndexService specialIndexService;
+    @Autowired
+    SpecialIndexDailySchedule schedule;
 
     @PostMapping("/pagination")
     public PageInfo<SpecialIndexDailyEntity> pagination(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "pageSize", required = false) Integer pageSize) {
         PageInfo<SpecialIndexDailyEntity> ret = specialIndexService.getWithPagination(page, pageSize);
         return ret;
+    }
+
+    @GetMapping("/execute")
+    public Boolean execute() {
+        schedule.execute();
+        return true;
     }
 }
