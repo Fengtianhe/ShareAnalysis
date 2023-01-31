@@ -5,9 +5,52 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+
+    <title>特殊指标</title>
 </head>
 <body>
-123123123
+<div id="app">
+    <el-table :data="tableData.list">
+        <el-table-column label="日期" prop="date"></el-table-column>
+        <el-table-column label="涨停" prop="riseLimit"></el-table-column>
+        <el-table-column label="一字涨停" prop="directRiseLimit"></el-table-column>
+        <el-table-column label="跌停" prop="fallLimit"></el-table-column>
+        <el-table-column label="一字跌停" prop="directFallLimit"></el-table-column>
+        <el-table-column label="">
+            <template slot-scope="scope"></template>
+        </el-table-column>
+    </el-table>
+</div>
 </body>
+<script src="https://unpkg.com/vue@2/dist/vue.js"></script>
+<!-- 引入组件库 -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    new Vue({
+      el: '#app',
+      data: function() {
+        return {
+          tableData: {
+          },
+          page:1,
+          pageSize:15
+        }
+      },
+      created(){
+        this.fetchTableData()
+      },
+      methods:{
+        fetchTableData(){
+          axios.post(`/api/special-index/pagination?page=${this.page}&pageSize=${this.pageSize}`).then(response =>{
+            const respData = response.data
+            this.tableData = respData.data
+          })
+        }
+      }
+    })
+
+</script>
 </html>

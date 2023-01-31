@@ -37,4 +37,9 @@
         </set>
         where `id` = #{entity.id}
     </update>
+
+    <select id="getByCondition" resultType="com.fengtianhe.shareanalysis.entity.SpecialIndexDailyEntity">
+        select * from
+        <include refid="tableName"/>
+    </select>
 </mapper>

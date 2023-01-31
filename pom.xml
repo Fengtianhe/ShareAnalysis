@@ -76,6 +76,19 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.20</version>
         </dependency>
+        <!--分页工具-->
+        <!--MyBatis 分页插件: MyBatis PageHelper-->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>1.2.5</version>
+        </dependency>
+        <!-- 热修改前端-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional> <!-- 这个需要为 true 热部署才有效 -->
+        </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>
@@ -84,6 +97,7 @@
     </dependencies>
 
     <build>
+        <finalName>share-analysis-server</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
