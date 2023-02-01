@@ -1,7 +1,9 @@
 package com.fengtianhe.shareanalysis.schedule;
 
+import com.alibaba.fastjson.JSON;
 import com.fengtianhe.shareanalysis.entity.SpecialIndexDailyEntity;
 import com.fengtianhe.shareanalysis.mapper.SpecialIndexDailyMapper;
+import com.fengtianhe.shareanalysis.service.ICommonShareService;
 import com.fengtianhe.shareanalysis.spider.tonghuashun.ThxDashboardComponent;
 import com.fengtianhe.shareanalysis.utils.DatetimeUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -24,15 +26,23 @@ public class SpecialIndexDailySchedule {
     ThxDashboardComponent thxDashboardComponent;
     @Autowired
     SpecialIndexDailyMapper specialIndexDailyMapper;
+    @Autowired
+    ICommonShareService commonShareService;
 
     /**
      * 每天4点获取特色指标
      */
-//    @Scheduled(cron = "0 0 16 * * *")
+    @Scheduled(cron = "0 0 16 * * *")
     public void execute() {
         String date = DatetimeUtil.format(DatetimeUtil.FORMAT_DATE_NO_SEPARATOR);
+
         SpecialIndexDailyEntity specialIndexDailyEntity = null;
         try {
+            if (!commonShareService.isOpening()) {
+                log.info("[SpecialIndexDailySchedule execute] 未开盘，不获取当天数据");
+                return;
+            }
+
             Integer directRiseLimitCnt = thxDashboardComponent.getDirectRiseLimitCnt();
             Integer directFallLimitCnt = thxDashboardComponent.getDirectFallLimitCnt();
             Integer fallLimitCnt = thxDashboardComponent.getFallLimitCnt();
@@ -49,8 +59,10 @@ public class SpecialIndexDailySchedule {
             specialIndexDailyEntity.setFallLimit(fallLimitCnt);
 
             if (specialIndexDailyEntity.getId() != null) {
+                log.info("[SpecialIndexDailySchedule execute] 更新特色指标: {}", JSON.toJSONString(specialIndexDailyEntity));
                 specialIndexDailyMapper.updateById(specialIndexDailyEntity);
             } else {
+                log.info("[SpecialIndexDailySchedule execute] 新增特色指标: {}", JSON.toJSONString(specialIndexDailyEntity));
                 specialIndexDailyMapper.save(specialIndexDailyEntity);
             }
         } catch (Exception e) {
