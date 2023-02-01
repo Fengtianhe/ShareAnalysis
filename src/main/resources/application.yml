@@ -7,3 +7,14 @@ spring:
     static-path-pattern: /**
   resources:
     static-locations: classpath:/templates/,classpath:/static/
+  # redis配置
+  redis:
+    database: 1
+    host: 82.156.17.219
+    password: W6cpBXCH2mjcZeKZ
+    port: 18714
+    jedis:
+      pool:
+        max-idle: 8
+        max-wait: -1
+        min-idle: 0
