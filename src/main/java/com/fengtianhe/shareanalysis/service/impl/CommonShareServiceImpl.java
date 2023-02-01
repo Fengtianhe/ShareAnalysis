@@ -28,9 +28,9 @@ public class CommonShareServiceImpl implements ICommonShareService {
         int workday = jsonObject.getIntValue("workday");
         boolean et = weekend == 2 && workday == 1;
         if (et) {
-            log.info("[CommonShareServiceImpl isOpening] 日期{}为开盘日", date);
+            log.info("[CommonShareServiceImpl isOpening] 日期{}为开盘日 weekend = {} workday = {}", date, weekend, workday);
         } else {
-            log.info("[CommonShareServiceImpl isOpening] 日期{}为非开盘日", date);
+            log.info("[CommonShareServiceImpl isOpening] 日期{}为非开盘日 weekend = {} workday = {}", date, weekend, workday);
         }
         return et;
     }
