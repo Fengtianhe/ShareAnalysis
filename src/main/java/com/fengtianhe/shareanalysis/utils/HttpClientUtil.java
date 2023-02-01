@@ -69,7 +69,7 @@ public class HttpClientUtil {
     }
 
     private void validateUrl(String url) {
-        log.info("验证URL[{}]是否为空", url);
+        log.debug("验证URL[{}]是否为空", url);
         if (StringUtils.isBlank(url)) {
             throw new IllegalArgumentException();
         }
@@ -77,7 +77,7 @@ public class HttpClientUtil {
 
     public String execute() throws IOException {
         setParameter();
-        log.info("访问请求地址[{}]获取结果", this.url);
+        log.debug("访问请求地址[{}]获取结果", this.url);
         CloseableHttpResponse response = HttpClientUtil.execute(httpMessage);
         HttpEntity entity = response.getEntity();
         String result = EntityUtils.toString(entity, "utf-8");
@@ -89,7 +89,7 @@ public class HttpClientUtil {
     }
 
     private void setParameter() throws UnsupportedEncodingException {
-        log.info("添加请求参数到请求主体上");
+        log.debug("添加请求参数到请求主体上");
         if (httpMessage instanceof HttpGet) {
             if (nameValuePairs != null && !nameValuePairs.isEmpty()) {
                 String tmp = URLEncodedUtils.format(nameValuePairs, "utf-8");
@@ -114,21 +114,21 @@ public class HttpClientUtil {
     }
 
     public HttpClientUtil addHeader(String key, String value) {
-        log.info("校验请求主体是否存在");
+        log.debug("校验请求主体是否存在");
         if (this.httpMessage == null) {
             throw new NullPointerException("未调用get或post方法");
         }
-        log.info("设置请求头");
+        log.debug("设置请求头");
         this.httpMessage.setHeader(key, value);
         return this;
     }
 
     public HttpClientUtil addAllHeader(Map<String, String> headers) {
-        log.info("校验请求主体是否存在");
+        log.debug("校验请求主体是否存在");
         if (this.httpMessage == null) {
             throw new NullPointerException("未调用get或post方法");
         }
-        log.info("设置请求头");
+        log.debug("设置请求头");
         for (String key : headers.keySet()) {
             this.httpMessage.setHeader(key, headers.get(key));
         }
@@ -139,7 +139,7 @@ public class HttpClientUtil {
         if (this.nameValuePairs == null) {
             this.nameValuePairs = new ArrayList<>();
         }
-        log.info("添加请求参数[{}, {}]到内存", key, value);
+        log.debug("添加请求参数[{}, {}]到内存", key, value);
         this.nameValuePairs.add(new BasicNameValuePair(key, value));
         return this;
     }
