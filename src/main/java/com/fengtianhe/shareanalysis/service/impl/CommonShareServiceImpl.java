@@ -23,7 +23,7 @@ public class CommonShareServiceImpl implements ICommonShareService {
         String date = DatetimeUtil.format(DatetimeUtil.FORMAT_DATE_NO_SEPARATOR);
         HttpClientUtil clientUtil = new HttpClientUtil();
         String response = clientUtil.get("https://api.apihubs.cn/holiday/get?cn=1&date=" + date).execute();
-        JSONObject jsonObject = JSONObject.parseObject(response);
+        JSONObject jsonObject = JSONObject.parseObject(response).getJSONObject("data").getJSONArray("list").getJSONObject(0);
         int weekend = jsonObject.getIntValue("weekend");
         int workday = jsonObject.getIntValue("workday");
         boolean et = weekend == 2 && workday == 1;
