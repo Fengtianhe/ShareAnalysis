@@ -9,6 +9,14 @@
     <link rel="stylesheet" href="css/element-ui.css">
 
     <title>特殊指标</title>
+    <style>
+        .el-popover{
+            top: 0 !important;
+            bottom: 0 !important;
+            margin-bottom: 12px;
+            overflow: hidden !important;
+        }
+    </style>
 </head>
 <body>
 <div id="app">
@@ -23,6 +31,22 @@
         <el-table-column label="一字涨停" prop="directRiseLimit"></el-table-column>
         <el-table-column label="跌停" prop="fallLimit"></el-table-column>
         <el-table-column label="一字跌停" prop="directFallLimit"></el-table-column>
+        <el-table-column label="涨停板块">
+            <template slot-scope="scope">
+                <el-popover trigger="click">
+                    <el-button type="text" slot="reference">{{ scope.row.riseFallPlateEntities && scope.row.riseFallPlateEntities.length }}个</el-button>
+                    <div style="height: 100%; overflow: scroll">
+                        <div v-for="obj in scope.row.riseFallPlateEntities"
+                             :key="`rise-fall-plate:${obj.id}`"
+                             style="display: flex"
+                        >
+                            <div style="flex: 0 0 200px; font-weight: 600">{{obj.plateName}}:</div>
+                            <div>{{obj.shares}}</div>
+                        </div>
+                    </div>
+                </el-popover>
+            </template>
+        </el-table-column>
         <el-table-column label="">
             <template slot-scope="scope"></template>
         </el-table-column>
@@ -49,7 +73,9 @@
       },
       methods:{
         fetchTableData(){
+          let loadingInstance = this.$loading({fullscreen:true})
           axios.post(`/api/special-index/pagination?page=${this.page}&pageSize=${this.pageSize}`).then(response =>{
+            loadingInstance.close();
             const respData = response.data
             this.tableData = respData.data
           })

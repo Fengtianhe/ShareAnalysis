@@ -3,6 +3,8 @@ package com.fengtianhe.shareanalysis.service;
 import com.fengtianhe.shareanalysis.entity.SpecialIndexDailyEntity;
 import com.github.pagehelper.PageInfo;
 
+import java.util.List;
+
 public interface ISpecialIndexService {
-    PageInfo<SpecialIndexDailyEntity> getWithPagination(Integer page, Integer pageSize);
+    List<SpecialIndexDailyEntity> getByCondition();
 }

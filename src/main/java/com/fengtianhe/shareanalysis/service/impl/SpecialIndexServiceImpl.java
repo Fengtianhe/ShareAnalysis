@@ -15,12 +15,9 @@ public class SpecialIndexServiceImpl implements ISpecialIndexService {
     @Autowired
     SpecialIndexDailyMapper specialIndexDailyMapper;
     @Override
-    public PageInfo<SpecialIndexDailyEntity> getWithPagination(Integer page, Integer pageSize) {
-        page = page == null ? 1 : page;
-        pageSize = pageSize == null ? 15 : pageSize;
-        PageHelper.startPage(page, pageSize);
+    public List<SpecialIndexDailyEntity> getByCondition() {
         SpecialIndexDailyEntity condition = new SpecialIndexDailyEntity();
         List<SpecialIndexDailyEntity> lists = specialIndexDailyMapper.getByCondition(condition);
-        return new PageInfo<>(lists);
+        return lists;
     }
 }

@@ -34,4 +34,10 @@ public class CommonShareServiceImpl implements ICommonShareService {
         }
         return et;
     }
+
+    @Override
+    public String covertShareCodeByPoint(String shareCode) {
+        String[] split = shareCode.split("\\.");
+        return split[1] + split[0];
+    }
 }

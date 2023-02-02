@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fengtianhe.shareanalysis.mapper.RiseFallPlateMapper">
+    <sql id="tableName">`rise_fall_plate`</sql>
+
+    <insert id="save" parameterType="com.fengtianhe.shareanalysis.entity.RiseFallPlateEntity">
+        INSERT INTO
+        <include refid="tableName"/>
+        (`date`, `plate_name`, `shares`)
+        VALUES
+        (#{entity.date}, #{entity.plateName}, #{entity.shares})
+    </insert>
+
+    <delete id="deleteByDate">
+        delete from <include refid="tableName"/> where date = #{date}
+    </delete>
+
+    <select id="getByDate" resultType="com.fengtianhe.shareanalysis.entity.RiseFallPlateEntity">
+        select * from
+        <include refid="tableName"/>
+        where date = #{date}
+    </select>
+
+    <select id="getByCondition" resultType="com.fengtianhe.shareanalysis.entity.RiseFallPlateEntity">
+        select * from
+        <include refid="tableName"/>
+        order by date desc
+    </select>
+</mapper>
